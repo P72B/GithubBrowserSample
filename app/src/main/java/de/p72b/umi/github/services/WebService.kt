@@ -2,8 +2,8 @@ package de.p72b.umi.github.services
 
 import com.google.gson.GsonBuilder
 import de.p72b.umi.github.utils.Utils
-import io.reactivex.Flowable
 import okhttp3.OkHttpClient
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,10 +24,7 @@ class WebService constructor(config: Configuration) {
         retrofit.build().create(GitHubSearchApi::class.java)
     }
 
-    fun repositories(query: String): Flowable<List<Repository>> {
+    fun repositories(query: String): Call<RepositoriesResponse> {
         return api.repositories(query)
-            .map {
-                it.items
-            }
     }
 }
