@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class WebService constructor(gitHubSearchBaseUrl: String) {
+class WebService constructor(config: Configuration) {
 
     private val api: GitHubSearchApi by lazy {
         val client = OkHttpClient.Builder()
@@ -17,7 +17,7 @@ class WebService constructor(gitHubSearchBaseUrl: String) {
             .create()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(gitHubSearchBaseUrl)
+            .baseUrl(config.apiGitHubSearchServiceUrl)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client.build())
