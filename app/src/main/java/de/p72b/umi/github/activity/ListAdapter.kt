@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import de.p72b.umi.github.R
 import de.p72b.umi.github.services.Repository
 
-class RepositoryListAdapter(
-    private val context: Context, private val listener: AdapterListener
-) : RecyclerView.Adapter<RepositoryListAdapter.RepositoryViewHolder>() {
+class ListAdapter(
+    context: Context, private val listener: AdapterListener
+) : RecyclerView.Adapter<ListAdapter.RepositoryViewHolder>() {
 
     private val inflater = LayoutInflater.from(context)
     private var list: List<Repository>? = null
@@ -32,6 +32,9 @@ class RepositoryListAdapter(
 
     override fun onBindViewHolder(holder: RepositoryViewHolder, position: Int) {
         val item = list!![position]
+        holder.root.setOnClickListener {
+            listener.onRepositoryClicked(item)
+        }
         holder.id.text = "Repository ID: ${item.id}"
     }
 
@@ -41,6 +44,7 @@ class RepositoryListAdapter(
     }
 
     class RepositoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val root: View = itemView.findViewById(R.id.vItemRoot)
         val id: TextView = itemView.findViewById(R.id.vId)
     }
 

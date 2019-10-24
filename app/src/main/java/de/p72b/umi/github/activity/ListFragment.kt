@@ -1,44 +1,62 @@
 package de.p72b.umi.github.activity
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import de.p72b.umi.github.App
 import de.p72b.umi.github.R
 import de.p72b.umi.github.arch.RepositoryViewModel
 import de.p72b.umi.github.services.Repository
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_list.*
 
-
-class RepositoryListActivity : AppCompatActivity() {
+class ListFragment : Fragment() {
+    private lateinit var rootView: View
 
     private lateinit var repositoriesViewModel: RepositoryViewModel
-    private lateinit var adapter: RepositoryListAdapter
+    private lateinit var adapter: ListAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    companion object {
+        val TAG: String = ListFragment::class.java.simpleName
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        rootView = inflater.inflate(R.layout.fragment_list, null)
+        return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initViews()
 
         repositoriesViewModel = ViewModelProviders.of(this).get(RepositoryViewModel::class.java)
     }
 
+    override fun onResume() {
+        super.onResume()
+        getRepositories()
+    }
+
     private fun initViews() {
         vSwipeRefresh.setOnRefreshListener { getRepositories() }
         adapter =
-            RepositoryListAdapter(this,
-                object : RepositoryListAdapter.AdapterListener {
+            ListAdapter(App.sInstance,
+                object : ListAdapter.AdapterListener {
                     override fun onRepositoryClicked(repository: Repository) {
-                        // TODO: open details view here
+                        (activity as RepositoryActivity).showDetails(repository)
                     }
                 })
         vRecyclerView.adapter = adapter
-        vRecyclerView.layoutManager = LinearLayoutManager(this)
+        vRecyclerView.layoutManager = LinearLayoutManager(context)
     }
 
     private fun getRepositories() {

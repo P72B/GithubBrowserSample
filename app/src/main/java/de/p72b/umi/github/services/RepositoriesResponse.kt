@@ -1,6 +1,8 @@
 package de.p72b.umi.github.services
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class RepositoriesResponse(
     @SerializedName("total_count") val totalCount: Int? = null,
@@ -8,6 +10,8 @@ data class RepositoriesResponse(
     @SerializedName("items") val items: List<Repository>? = null
 )
 
+// in case of lint error see here https://youtrack.jetbrains.com/issue/KT-19300
+@Parcelize
 data class Repository(
     @SerializedName("id") val id: Int? = null,
     @SerializedName("node_id") val nodeId: String? = null,
@@ -32,8 +36,9 @@ data class Repository(
     @SerializedName("master_branch") val masterBranch: String? = null,
     @SerializedName("default_branch") val defaultBranch: String? = null,
     @SerializedName("score") val score: Double? = null
-)
+) : Parcelable
 
+@Parcelize
 data class Owner(
     @SerializedName("login") val login: String? = null,
     @SerializedName("id") val id: Int? = null,
@@ -43,4 +48,4 @@ data class Owner(
     @SerializedName("url") val url: String? = null,
     @SerializedName("received_events_url") val receivedEventsUrl: String? = null,
     @SerializedName("type") val type: String? = null
-)
+) : Parcelable
