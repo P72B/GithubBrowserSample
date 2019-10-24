@@ -35,7 +35,11 @@ class ListAdapter(
         holder.root.setOnClickListener {
             listener.onRepositoryClicked(item)
         }
-        holder.id.text = "Repository ID: ${item.id}"
+        holder.name.text = item.name
+        item.owner?.let {
+            holder.owner.text = it.login
+        }
+        holder.stars.text = item.stargazersCount.toString()
     }
 
     fun setData(items: List<Repository>) {
@@ -45,7 +49,9 @@ class ListAdapter(
 
     class RepositoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val root: View = itemView.findViewById(R.id.vItemRoot)
-        val id: TextView = itemView.findViewById(R.id.vId)
+        val name: TextView = itemView.findViewById(R.id.vName)
+        val owner: TextView = itemView.findViewById(R.id.vOwner)
+        val stars: TextView = itemView.findViewById(R.id.vStars)
     }
 
     interface AdapterListener {

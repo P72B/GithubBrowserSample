@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">GitHub popularity leader</string>
+    <string name="app_name">GitHub Repos Search</string>
+    <string name="toolbar_search">Search</string>
+    <string name="search_query_hint">"Search for repositories"</string>
+
+    <!-- key -->
+    <string name="pref_key_search">prefKeySearch</string>
 </resources>

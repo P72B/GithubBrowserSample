@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="white">#FFFFFF</color>
-    <color name="lightGrey">#C7C7C7</color>
+    <color name="githubBlue">#25292E</color>
+    <color name="normalTextColor">#121212</color>
+    <color name="introvertTextColor">#797979</color>
 </resources>

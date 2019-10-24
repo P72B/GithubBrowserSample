@@ -13,9 +13,10 @@ class RepositoryViewModel(application: Application) : AndroidViewModel(applicati
 
     private val repository: RepositoryRepository by inject()
 
-    var allRepositories: LiveData<Resource<List<Repository>>> get() = repository.allRepositories()
+    var allRepositories: LiveData<Resource<List<Repository>>> = MutableLiveData<Resource<List<Repository>>>()
 
-    init {
-        allRepositories = MutableLiveData<Resource<List<Repository>>>()
+    fun searchRepositories(query: String): LiveData<Resource<List<Repository>>> {
+        allRepositories = repository.allRepositories(query)
+        return allRepositories
     }
 }

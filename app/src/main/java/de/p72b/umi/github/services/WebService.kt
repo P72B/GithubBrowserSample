@@ -25,6 +25,6 @@ class WebService constructor(config: Configuration) {
     }
 
     fun repositories(query: String): Call<RepositoriesResponse> {
-        return api.repositories(query)
+        return api.repositories(query, "stars", "desc")
     }
 }

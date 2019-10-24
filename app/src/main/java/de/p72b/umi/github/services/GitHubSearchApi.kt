@@ -11,5 +11,5 @@ internal interface GitHubSearchApi {
     }
 
     @GET("$SEARCH_ROOT/repositories")
-    fun repositories(@Query("q") query: String): Call<RepositoriesResponse>
+    fun repositories(@Query("q") query: String, @Query("sort") sort: String, @Query("order") order: String): Call<RepositoriesResponse>
 }

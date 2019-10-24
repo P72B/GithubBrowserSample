@@ -18,8 +18,8 @@ class RepositoryRepository : KoinComponent {
 
     private val data = MutableLiveData<Resource<List<Repository>>>()
 
-    fun allRepositories(): LiveData<Resource<List<Repository>>> {
-        webService.repositories("kotlin").enqueue(
+    fun allRepositories(query: String): LiveData<Resource<List<Repository>>> {
+        webService.repositories(query).enqueue(
             object : Callback<RepositoriesResponse> {
                 override fun onResponse(
                     call: Call<RepositoriesResponse>,

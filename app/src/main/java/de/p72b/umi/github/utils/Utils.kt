@@ -23,7 +23,7 @@ object Utils {
                 setAction(actionMessage, actionClickListener)
             }
             view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).apply {
-                setTextColor(ContextCompat.getColor(App.sInstance, R.color.lightGrey))
+                setTextColor(ContextCompat.getColor(App.sInstance, R.color.white))
                 maxLines = 5
             }
             show()
