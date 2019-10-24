@@ -1,6 +1,7 @@
-package de.p72b.umi.github.activity
+package de.p72b.umi.github.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,9 @@ import de.p72b.umi.github.App
 import de.p72b.umi.github.R
 import de.p72b.umi.github.arch.RepositoryViewModel
 import de.p72b.umi.github.services.Repository
+import de.p72b.umi.github.utils.Utils
+import de.p72b.umi.github.vo.Resource
+import de.p72b.umi.github.vo.Status
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment : Fragment() {
@@ -62,9 +66,17 @@ class ListFragment : Fragment() {
     private fun getRepositories() {
         vSwipeRefresh.isRefreshing = true
         repositoriesViewModel.allRepositories.observe(this,
-            Observer<List<Repository>> { items ->
+            Observer<Resource<List<Repository>>> { resource ->
                 vSwipeRefresh.isRefreshing = false
-                adapter.setData(items)
+                when (resource.status) {
+                    Status.SUCCESS -> resource.data?.let {
+                        adapter.setData(it)
+                    }
+                    Status.ERROR -> resource.message?.let {
+                        Utils.showSnackbar(rootView, it)
+                    }
+                }
+
             })
     }
 }

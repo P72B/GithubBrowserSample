@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.RepositoryActivity">
+    tools:context=".ui.RepositoryActivity">
 
         <include layout="@layout/content_main_repository" />
 </androidx.constraintlayout.widget.ConstraintLayout>

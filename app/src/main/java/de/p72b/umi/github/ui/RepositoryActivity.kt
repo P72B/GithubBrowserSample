@@ -1,4 +1,4 @@
-package de.p72b.umi.github.activity
+package de.p72b.umi.github.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

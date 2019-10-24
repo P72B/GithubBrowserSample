@@ -1,4 +1,4 @@
-package de.p72b.umi.github.koin
+package de.p72b.umi.github.di
 
 import de.p72b.umi.github.BuildConfig
 import de.p72b.umi.github.arch.RepositoryRepository

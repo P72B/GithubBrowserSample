@@ -1,7 +1,7 @@
 package de.p72b.umi.github
 
 import android.app.Application
-import de.p72b.umi.github.koin.appModule
+import de.p72b.umi.github.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
