@@ -1,4 +1,4 @@
-package de.p72b.umi.github.ui
+package de.p72b.umi.github.ui.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
 import android.view.MenuInflater
 import androidx.preference.PreferenceManager
 import de.p72b.umi.github.R
+import de.p72b.umi.github.ui.RepositoryActivity
 
 class ListFragment : Fragment() {
     private lateinit var rootView: View
@@ -86,7 +87,9 @@ class ListFragment : Fragment() {
             ListAdapter(App.sInstance,
                 object : ListAdapter.AdapterListener {
                     override fun onRepositoryClicked(repository: Repository) {
-                        (activity as RepositoryActivity).showDetails(repository)
+                        (activity as RepositoryActivity).showDetails(
+                            repository
+                        )
                     }
                 })
         vRecyclerView.adapter = adapter

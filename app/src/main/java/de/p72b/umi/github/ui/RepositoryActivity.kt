@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import de.p72b.umi.github.R
 import de.p72b.umi.github.services.Repository
+import de.p72b.umi.github.ui.details.DetailsFragment
+import de.p72b.umi.github.ui.list.ListFragment
 
 
 class RepositoryActivity : AppCompatActivity() {

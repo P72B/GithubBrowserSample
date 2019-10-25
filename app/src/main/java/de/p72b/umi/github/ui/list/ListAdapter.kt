@@ -1,4 +1,4 @@
-package de.p72b.umi.github.ui
+package de.p72b.umi.github.ui.list
 
 import android.content.Context
 import android.view.LayoutInflater
