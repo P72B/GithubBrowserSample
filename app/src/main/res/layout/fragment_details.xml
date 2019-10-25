@@ -4,31 +4,136 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="detailsViewModel"
             type="de.p72b.umi.github.ui.details.DetailsViewModel" />
+
+        <variable
+            name="handler"
+            type="de.p72b.umi.github.ui.details.Handler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/score_layout"
+        android:id="@+id/repo_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".screens.score.ScoreFragment">
 
         <TextView
-            android:id="@+id/score_text"
-            android:layout_width="wrap_content"
+            android:id="@+id/vName"
+            style="@style/TextAppearance.MaterialComponents.Headline4"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:fontFamily="sans-serif"
-            android:text="@{String.valueOf(detailsViewModel.data.id)}"
+            android:text="@{detailsViewModel.data.name}"
             android:textColor="@color/normalTextColor"
             android:textSize="34sp"
             android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:text="BurstMonitor" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="40" />
+            app:srcCompat="@color/weShareGrassGreen" />
+
+        <TextView
+            android:id="@+id/vOwner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="@{detailsViewModel.data.owner.login}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vName"
+            tools:text="p72b" />
+
+        <TextView
+            android:id="@+id/vStars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_star_black_24dp"
+            android:text="@{String.valueOf(detailsViewModel.data.stargazersCount)}"
+            android:textColor="@color/githubBlue"
+            app:layout_constraintStart_toEndOf="@+id/vLanguage"
+            app:layout_constraintTop_toBottomOf="@+id/vOwner"
+            tools:text="658" />
+
+        <TextView
+            android:id="@+id/vForks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_call_split_black_24dp"
+            android:text="@{String.valueOf(detailsViewModel.data.forksCount)}"
+            android:textColor="@color/githubBlue"
+            app:layout_constraintStart_toEndOf="@+id/vStars"
+            app:layout_constraintTop_toBottomOf="@+id/vOwner"
+            tools:text="658" />
+
+        <TextView
+            android:id="@+id/vWatcher"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
+            android:text="@{String.valueOf(detailsViewModel.data.watchersCount)}"
+            android:textColor="@color/githubBlue"
+            app:layout_constraintStart_toEndOf="@+id/vForks"
+            app:layout_constraintTop_toBottomOf="@+id/vOwner"
+            tools:text="658" />
+
+        <TextView
+            android:id="@+id/vLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@{detailsViewModel.data.language}"
+            android:textColor="@color/githubBlue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vOwner"
+            tools:text="Kotlin" />
+
+        <TextView
+            android:id="@+id/vDescription"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{detailsViewModel.data.description}"
+            android:textColor="@color/normalTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vLanguage"
+            tools:text="Burst pool mining monitor android application" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/vOpenLink"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/button_open"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vDescription"
+            app:layout_constraintVertical_bias="1.0" />
+        <!--app:languageIcon="@{detailsViewModel.data.language}"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

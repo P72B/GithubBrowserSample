@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">@color/weShareSkyBlue</color>
+    <color name="colorPrimaryDark">@color/weShareBlue</color>
+    <color name="colorAccent">@color/weShareSunYellow</color>
     <color name="white">#FFFFFF</color>
     <color name="githubBlue">#25292E</color>
     <color name="normalTextColor">#121212</color>
     <color name="introvertTextColor">#797979</color>
+
+
+    <color name="weShareSunYellow">#efd533</color>
+    <color name="weShareBlue">#1d38bc</color>
+    <color name="weShareSkyBlue">#009ddb</color>
+    <color name="weShareGrassGreen">#37d47f</color>
 </resources>
