@@ -49,6 +49,7 @@ class DetailsFragment : Fragment() {
                 viewModelFactory = DetailsViewModelFactory(it)
                 viewModel = ViewModelProviders.of(this, viewModelFactory)
                     .get(DetailsViewModel::class.java)
+                binding.handler = Handler()
                 binding.detailsViewModel = viewModel
                 binding.lifecycleOwner = this
             }
