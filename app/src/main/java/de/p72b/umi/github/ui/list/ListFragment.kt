@@ -56,18 +56,16 @@ class ListFragment : Fragment() {
         initViews()
 
         repositoriesViewModel = ViewModelProviders.of(this).get(RepositoryViewModel::class.java)
-
-        autoPoll()
     }
 
     private fun autoPoll() {
         disposables.add(
-            Observable.interval(10, 10, TimeUnit.SECONDS)
+            Observable.interval(0, 10, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<Long>() {
                     override fun onComplete() {
-                        // until onDestroy endless
+                        // until onPause endless
                     }
 
                     override fun onNext(time: Long) {
@@ -83,12 +81,12 @@ class ListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        getRepositories()
+        autoPoll()
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         disposables.clear()
-        super.onDestroy()
+        super.onPause()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
