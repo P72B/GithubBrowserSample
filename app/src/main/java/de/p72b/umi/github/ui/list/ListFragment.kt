@@ -21,13 +21,19 @@ import android.view.MenuInflater
 import androidx.preference.PreferenceManager
 import de.p72b.umi.github.R
 import de.p72b.umi.github.ui.RepositoryActivity
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableObserver
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class ListFragment : Fragment() {
     private lateinit var rootView: View
-
     private lateinit var repositoriesViewModel: RepositoryViewModel
     private lateinit var adapter: ListAdapter
 
+    private val disposables = CompositeDisposable()
     private val preferenceManager = PreferenceManager.getDefaultSharedPreferences(App.sInstance)
 
     companion object {
@@ -50,11 +56,39 @@ class ListFragment : Fragment() {
         initViews()
 
         repositoriesViewModel = ViewModelProviders.of(this).get(RepositoryViewModel::class.java)
+
+        autoPoll()
+    }
+
+    private fun autoPoll() {
+        disposables.add(
+            Observable.interval(10, 10, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableObserver<Long>() {
+                    override fun onComplete() {
+                        // until onDestroy endless
+                    }
+
+                    override fun onNext(time: Long) {
+                        getRepositories()
+                    }
+
+                    override fun onError(e: Throwable) {
+                        // ignore for now
+                    }
+                })
+        )
     }
 
     override fun onResume() {
         super.onResume()
         getRepositories()
+    }
+
+    override fun onDestroy() {
+        disposables.clear()
+        super.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -71,7 +105,8 @@ class ListFragment : Fragment() {
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                preferenceManager.edit().putString(getString(R.string.pref_key_search), query).apply()
+                preferenceManager.edit().putString(getString(R.string.pref_key_search), query)
+                    .apply()
 
                 getRepositories()
                 return false
@@ -98,7 +133,8 @@ class ListFragment : Fragment() {
 
     private fun getRepositories() {
         vSwipeRefresh.isRefreshing = true
-        val query = preferenceManager.getString(getString(R.string.pref_key_search), "kotlin")?: "kotlin"
+        val query =
+            preferenceManager.getString(getString(R.string.pref_key_search), "kotlin") ?: "kotlin"
         repositoriesViewModel.searchRepositories(query).observe(this,
             Observer<Resource<List<Repository>>> { resource ->
                 vSwipeRefresh.isRefreshing = false
